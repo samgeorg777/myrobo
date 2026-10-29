@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand / Theme -->
+    <color name="primary">#00E5FF</color>
+    <color name="primary_variant">#00B0FF</color>
+    <color name="on_primary">#0A0E17</color>
+    
+    <color name="secondary">#00E676</color>
+    <color name="secondary_variant">#00C853</color>
+    <color name="on_secondary">#0A0E17</color>
+
+    <!-- Canvas & UI Surfaces -->
+    <color name="bg_dark">#0F141C</color>
+    <color name="bg_surface">#18202E</color>
+    <color name="bg_card">#222C3D</color>
+    <color name="grid_line">#1A2433</color>
+    
+    <!-- Code Editor Theme -->
+    <color name="editor_bg">#121824</color>
+    <color name="editor_gutter">#1A2232</color>
+    <color name="editor_text">#E0E6ED</color>
+    <color name="editor_keyword">#FF4081</color>
+    <color name="editor_type">#00E5FF</color>
+    <color name="editor_number">#FFD54F</color>
+    <color name="editor_comment">#78909C</color>
+    <color name="editor_string">#AEEA00</color>
+
+    <!-- Status Colors -->
+    <color name="run_green">#00E676</color>
+    <color name="stop_red">#FF5252</color>
+    <color name="warning_amber">#FFB300</color>
+    <color name="wire_red">#FF5252</color>
+    <color name="wire_black">#212121</color>
+    <color name="wire_blue">#448AFF</color>
+    <color name="wire_yellow">#FFD600</color>
+    <color name="wire_green">#00E676</color>
+
+    <!-- General Text -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#90A4AE</color>
+    <color name="divider">#2A374A</color>
+</resources>

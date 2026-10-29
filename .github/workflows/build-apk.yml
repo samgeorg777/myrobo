@@ -1,0 +1,61 @@
+name: Build myrobo APK
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Setup Gradle 8.5
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.5'
+
+    - name: Build Debug APK
+      run: gradle assembleDebug --stacktrace
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: myrobo-Debug-APK
+        path: app/build/outputs/apk/debug/*.apk
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        name: myrobo Simulator v1.0.${{ github.run_number }}
+        body: |
+          ### ⚡ myrobo - Microcontroller & Circuit Simulator for Android
+          Built specifically for engineering students to learn embedded systems, C/C++, and circuit design with zero hardware cost.
+
+          #### ✨ Features in this release:
+          - 🔌 **Virtual Microcontroller Engine:** Fully interactive Arduino Uno with ATmega328P pinout.
+          - 💻 **Offline C/C++ & Arduino Runner:** Compiles and runs `setup()`, `loop()`, `digitalWrite`, `analogRead`, `delay()`, etc.
+          - 💡 **Component Library:** Resistors, LEDs (Red/Green/Blue/Yellow), Pushbuttons, Potentiometers, Buzzers, Ultrasonic Sensors.
+          - 📊 **Real-Time Serial Monitor:** Live baud rate terminal for sensor debugging.
+          - 💾 **Local Project Storage:** Offline JSON saving, export/import, zero login/signup needed.
+          - 📱 **Low Memory Consumption:** Runs smoothly even on 2GB-3GB RAM Android phones.
+
+          #### 📥 How to Install:
+          1. Download `app-debug.apk` below.
+          2. Tap the downloaded file to install on your Android device (allow "Install unknown apps" if prompted).
+        files: app/build/outputs/apk/debug/*.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

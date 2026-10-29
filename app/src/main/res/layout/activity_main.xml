@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
+
+    <!-- Top App Bar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topToolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/bg_surface"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="12dp">
+
+            <!-- Logo & Title -->
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:contentDescription="myrobo logo"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tvProjectTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="myrobo: Uno Circuit"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Examples Preset Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnExamples"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="6dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Examples"
+                android:textColor="@color/primary"
+                android:textSize="11sp"
+                app:backgroundTint="@color/bg_card" />
+
+            <!-- Run / Stop Simulation Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRunStop"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:backgroundTint="@color/run_green"
+                android:elevation="2dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="▶ RUN"
+                android:textColor="@color/on_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:cornerRadius="18dp" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Content Container (Tabs) -->
+    <FrameLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topToolbar">
+
+        <!-- 1. Circuit Canvas View -->
+        <com.myrobo.simulator.ui.CircuitCanvasView
+            android:id="@+id/circuitCanvas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <!-- 2. Code Studio Layout -->
+        <LinearLayout
+            android:id="@+id/codeStudioLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/editor_bg"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Snippets Toolstrip -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/bg_surface"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSnippetDigitalWrite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text="digitalWrite()"
+                        android:textColor="@color/primary"
+                        app:chipBackgroundColor="@color/bg_card" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSnippetDigitalRead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="6dp"
+                        android:text="digitalRead()"
+                        android:textColor="@color/primary"
+                        app:chipBackgroundColor="@color/bg_card" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSnippetAnalogRead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="6dp"
+                        android:text="analogRead()"
+                        android:textColor="@color/primary"
+                        app:chipBackgroundColor="@color/bg_card" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSnippetDelay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="6dp"
+                        android:text="delay(1000)"
+                        android:textColor="@color/primary"
+                        app:chipBackgroundColor="@color/bg_card" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSnippetSerial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="6dp"
+                        android:text="Serial.println()"
+                        android:textColor="@color/primary"
+                        app:chipBackgroundColor="@color/bg_card" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Code Editor -->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true">
+
+                <com.myrobo.simulator.ui.CodeEditorView
+                    android:id="@+id/codeEditor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:padding="16dp"
+                    android:scrollbars="vertical" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 3. Serial Monitor Layout -->
+        <LinearLayout
+            android:id="@+id/serialMonitorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_dark"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Baud Rate: 9600"
+                    android:textColor="@color/primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnClearSerial"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Clear Log"
+                    android:textColor="@color/stop_red"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/scrollSerial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/editor_bg"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tvSerialLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="[Serial Monitor - 9600 baud]\nWaiting for microcontroller output...\n"
+                    android:textColor="@color/secondary"
+                    android:textSize="13sp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 4. Projects & Storage Layout -->
+        <LinearLayout
+            android:id="@+id/projectsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_dark"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Saved Circuits (Offline)"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSaveCurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:backgroundTint="@color/primary"
+                    android:text="Save Current"
+                    android:textColor="@color/on_primary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="No account or login required. Stored directly on your phone."
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProjects"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- Floating Add Component FAB (on Circuit view) -->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabAddComponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/primary"
+            android:text="+ Add Component"
+            android:textColor="@color/on_primary"
+            app:icon="@android:drawable/ic_input_add"
+            app:iconTint="@color/on_primary" />
+    </FrameLayout>
+
+    <!-- Bottom Tab Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/bg_surface"
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/text_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

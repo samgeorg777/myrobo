@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">myrobo</string>
+    <string name="tab_circuit">Circuit</string>
+    <string name="tab_code">Code</string>
+    <string name="tab_serial">Serial</string>
+    <string name="tab_projects">Projects</string>
+    
+    <string name="action_run">RUN</string>
+    <string name="action_stop">STOP</string>
+    <string name="action_add_component">+ Add Component</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_save">Save</string>
+    <string name="action_load_sample">Examples</string>
+    
+    <string name="status_ready">Simulator Ready</string>
+    <string name="status_running">Running...</string>
+    <string name="status_compiling">Compiling C/C++ Code...</string>
+    <string name="status_stopped">Simulator Stopped</string>
+    <string name="status_error">Compilation Error</string>
+</resources>
