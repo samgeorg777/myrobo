@@ -114,9 +114,11 @@ class CircuitCanvasView @JvmOverloads constructor(
             }
 
             // 4. Draw Active Wiring Line (while user drags between pins)
-            if (wiringStartPin != null && wiringStartComponent != null) {
-                val (sx, sy) = wiringStartComponent!!.getPinAbsolutePos(wiringStartPin!)
-                canvas.drawLine(sx, sy, wiringCurrentX, wiringCurrentY, wiringPreviewPaint)
+            val startPin = wiringStartPin
+            val startComp = wiringStartComponent
+            if (startPin != null && startComp != null) {
+                val pos = startComp.getPinAbsolutePos(startPin)
+                canvas.drawLine(pos.first, pos.second, wiringCurrentX, wiringCurrentY, wiringPreviewPaint)
             }
 
             // 5. Draw All Components
@@ -278,13 +280,15 @@ class CircuitCanvasView @JvmOverloads constructor(
                 }
 
                 // Complete wiring if dropped on another pin
-                if (wiringStartPin != null && wiringStartComponent != null) {
+                val startPin = wiringStartPin
+                val startComp = wiringStartComponent
+                if (startPin != null && startComp != null) {
                     val activeEngine = engine
                     if (activeEngine != null) {
                         for (comp in activeEngine.components) {
                             val endPin = comp.findPinAt(worldX, worldY, 35f)
-                            if (endPin != null && endPin != wiringStartPin) {
-                                val wireColor = when (wiringStartPin!!.type) {
+                            if (endPin != null && endPin != startPin) {
+                                val wireColor = when (startPin.type) {
                                     PinType.POWER_5V -> "#FF5252" // Red
                                     PinType.GND -> "#212121"      // Black
                                     PinType.ANALOG -> "#00E5FF"   // Cyan
@@ -292,8 +296,8 @@ class CircuitCanvasView @JvmOverloads constructor(
                                 }
                                 val newWire = Wire(
                                     id = "wire_${System.currentTimeMillis()}",
-                                    fromComponentId = wiringStartComponent!!.id,
-                                    fromPinId = wiringStartPin!!.id,
+                                    fromComponentId = startComp.id,
+                                    fromPinId = startPin.id,
                                     toComponentId = comp.id,
                                     toPinId = endPin.id,
                                     colorHex = wireColor

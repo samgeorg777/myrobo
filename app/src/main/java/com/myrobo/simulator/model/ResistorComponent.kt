@@ -10,7 +10,7 @@ class ResistorComponent(
     x: Float,
     y: Float,
     var resistanceOhms: Int = 220
-) : Component(id, "Resistor ($resistanceOhmsΩ)", x, y, 90f, 40f) {
+) : Component(id, "Resistor (${resistanceOhms}Ω)", x, y, 90f, 40f) {
 
     override val pins: List<Pin> = listOf(
         Pin("${id}_p1", "1", PinType.DIGITAL, relX = 8f, relY = 20f),
